@@ -9,12 +9,9 @@ using BussinesAccessLayer.BusinessObjects;
 
 namespace ShopRestAPI.Controllers
 {
-   
-
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        
         BussinesLogic bussinesLogic = new BussinesLogic();
 
         [HttpGet]

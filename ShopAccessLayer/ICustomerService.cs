@@ -5,8 +5,7 @@ using System;
 namespace BussinesAccessLayer
 {
     public interface ICustomerService
-    {
-        
+    {        
         CustomerBussinesObject Create(CustomerBussinesObject cust);
         
         List<CustomerBussinesObject> GetAll();

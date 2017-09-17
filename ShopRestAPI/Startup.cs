@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using BussinesAccessLayer;
+using BussinesAccessLayer.BusinessObjects;
 
 namespace ShopRestAPI
 {
@@ -35,7 +36,7 @@ namespace ShopRestAPI
                 app.UseDeveloperExceptionPage();
                 BussinesLogic logic = new BussinesLogic();
                 logic.CustomerService.Create(
-                    new BussinesAccessLayer.BusinessObjects.CustomerBussinesObject() {
+                    new CustomerBussinesObject() {
                         FirstName = "Jebus",
                         LastName = "Lukasz",
                         Address = "Armii Krajowej"
@@ -48,6 +49,13 @@ namespace ShopRestAPI
                     LastName = "Tomalczyk",
                     Address = "Armii Krajowej 23"
                 });
+
+                logic.OrderService.Create(
+                    new OrderBussinesObject()
+                    {
+                        DeliveryDate = DateTime.Now,
+                        OrderDate = DateTime.Now
+                    });
             }
 
             app.UseMvc();

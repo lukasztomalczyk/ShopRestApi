@@ -10,5 +10,10 @@ namespace BussinesAccessLayer
         {
             get { return new CustomerService(new DataAccess()); }
         }
+
+        public IOrderService OrderService
+        {
+            get { return new OrderService(new DataAccess()); }
+        }
     }
 }
