@@ -19,6 +19,7 @@ namespace ShopRestAPI
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                 .CaptureStartupErrors(true)  // Debug on startup
                 .UseStartup<Startup>()
                 .Build();
     }

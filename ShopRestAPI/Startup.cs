@@ -35,7 +35,7 @@ namespace ShopRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 BussinesLogic logic = new BussinesLogic();
-                logic.CustomerService.Create(
+                var Customer = logic.CustomerService.Create(
                     new CustomerBussinesObject() {
                         FirstName = "Jebus",
                         LastName = "Lukasz",
@@ -47,15 +47,18 @@ namespace ShopRestAPI
                 {
                     FirstName = "Anita",
                     LastName = "Tomalczyk",
-                    Address = "Armii Krajowej 23"
+                    Address = "Armii Krajowej 23",
                 });
 
                 logic.OrderService.Create(
                     new OrderBussinesObject()
                     {
-                        DeliveryDate = DateTime.Now,
-                        OrderDate = DateTime.Now
+                        DeliveryDate = DateTime.Now.AddMonths(-1),
+                        OrderDate = DateTime.Now.AddMonths(+1),
+                        Customer = Customer,
                     });
+
+
             }
 
             app.UseMvc();

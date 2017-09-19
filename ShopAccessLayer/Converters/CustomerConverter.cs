@@ -8,25 +8,29 @@ namespace BussinesAccessLayer.Converters
 {
     class CustomerConverter
     {
-        internal Customer Convert(CustomerBussinesObject cust)
+        internal Customer Convert(CustomerBussinesObject _customerBussinesObject)
         {
+            if (_customerBussinesObject == null) { return null;  }
+
             return new Customer()
             {
-                Id = cust.Id,
-                Address = cust.Address,
-                FirstName = cust.FirstName,
-                LastName = cust.LastName
+                Id = _customerBussinesObject.Id,
+                Address = _customerBussinesObject.Address,
+                FirstName = _customerBussinesObject.FirstName,
+                LastName = _customerBussinesObject.LastName
             };
         }
 
-        internal CustomerBussinesObject Convert(Customer cust)
+        internal CustomerBussinesObject Convert(Customer _customerBussinesObject)
         {
+            if (_customerBussinesObject == null) { return null; } 
+
             return new CustomerBussinesObject()
             {
-                Id = cust.Id,
-                Address = cust.Address,
-                FirstName = cust.FirstName,
-                LastName = cust.LastName
+                Id = _customerBussinesObject.Id,
+                Address = _customerBussinesObject.Address,
+                FirstName = _customerBussinesObject.FirstName,
+                LastName = _customerBussinesObject.LastName
             };
         }
     }

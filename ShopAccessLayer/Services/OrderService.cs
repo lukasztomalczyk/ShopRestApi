@@ -17,7 +17,7 @@ namespace BussinesAccessLayer.Services
 
         public OrderService(DataAccess _dataAccess)
         {
-            _dataAccess = dataAccess;
+            dataAccess = _dataAccess;
         }
         public OrderBussinesObject Create(OrderBussinesObject _bussinesObject)
         {

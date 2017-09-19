@@ -13,5 +13,9 @@ namespace DataAccessLayer.Entities
         public DateTime OrderDate { get; set; }
         [Required]
         public DateTime DeliveryDate { get; set; }
+        [Required]
+        public int CustomerId { get; set; }
+        [Required]
+        public Customer Customer { get; set; }
     }
 }
