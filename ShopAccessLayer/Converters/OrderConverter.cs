@@ -17,7 +17,6 @@ namespace BussinesAccessLayer.Converters
                 Id = _orderObject.Id,
                 OrderDate = _orderObject.OrderDate,
                 DeliveryDate = _orderObject.DeliveryDate,
-                Customer = new CustomerConverter().Convert(_orderObject.Customer),
                 CustomerId = _orderObject.CustomerId
             };
         }

@@ -21,5 +21,6 @@ namespace DataAccessLayer.Context
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders{ get; set; }
+        public DbSet<Adress> Adressess { get; set; }
     }
 }

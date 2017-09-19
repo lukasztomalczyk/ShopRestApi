@@ -13,6 +13,8 @@ namespace DataAccessLayer.UOW
 
         public IOrderRepository OrderRepository { get; internal set; }
 
+        public IAdressRepository AdressRepository { get; internal set; }
+
         private ContextDB context;
 
         public UnitOfWork()
@@ -20,6 +22,7 @@ namespace DataAccessLayer.UOW
             context = new ContextDB();
             CustomerRepository = new CustomerRepository(context);
             OrderRepository = new OrderRepository(context);
+            AdressRepository = new AdressRepository(context);
         }
 
         public int Complete()

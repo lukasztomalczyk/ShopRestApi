@@ -23,9 +23,9 @@ namespace BussinesAccessLayer.Services
         {
             using (IUnitOfWork _entryPoint = dataAccess.UnitOfWork)
             {
-                Order _unitOfWork = _entryPoint.OrderRepository.Create(converter.Convert(_bussinesObject));
+                Order _orderEntity = _entryPoint.OrderRepository.Create(converter.Convert(_bussinesObject));
                 _entryPoint.Complete();
-                return converter.Convert(_unitOfWork);
+                return converter.Convert(_orderEntity);
             }
          }
 
@@ -33,9 +33,9 @@ namespace BussinesAccessLayer.Services
         {
             using (IUnitOfWork _entryPoint = dataAccess.UnitOfWork)
             {
-                Order _unitOfWork = _entryPoint.OrderRepository.Delete(_idOrder);
+                Order _orderEntity = _entryPoint.OrderRepository.Delete(_idOrder);
                 _entryPoint.Complete();
-                return converter.Convert(_unitOfWork);
+                return converter.Convert(_orderEntity);
             }
         }
 
@@ -43,8 +43,9 @@ namespace BussinesAccessLayer.Services
         {
             using (IUnitOfWork _entryPoint = dataAccess.UnitOfWork)
             {
-                Order _unitOfWork = _entryPoint.OrderRepository.Get(_idOrder);
-                return converter.Convert(_unitOfWork);
+                Order _orderEntity = _entryPoint.OrderRepository.Get(_idOrder);
+                _orderEntity.Customer = _entryPoint.CustomerRepository.Get(_orderEntity.CustomerId);
+                return converter.Convert(_orderEntity);
             }
         }
 
@@ -56,19 +57,21 @@ namespace BussinesAccessLayer.Services
             }
         }
 
-        public OrderBussinesObject Update(OrderBussinesObject _orderBussines)
+        public OrderBussinesObject Update(OrderBussinesObject _orderBussinesFromPUT)
         {
             using (IUnitOfWork _entryPoint = dataAccess.UnitOfWork)
             {
-                Order _orderEntity = _entryPoint.OrderRepository.Get(_orderBussines.Id);
+                Order _orderEntity = _entryPoint.OrderRepository.Get(_orderBussinesFromPUT.Id);
 
                 if(_orderEntity == null)
                 {
                     throw new InvalidOperationException("Not found Order");
                 }
 
-                _orderEntity.DeliveryDate = _orderBussines.DeliveryDate;
-                _orderEntity.OrderDate = _orderBussines.OrderDate;
+                _orderEntity.DeliveryDate = _orderBussinesFromPUT.DeliveryDate;
+                _orderEntity.OrderDate = _orderBussinesFromPUT.OrderDate;
+                _orderEntity.CustomerId = _orderBussinesFromPUT.CustomerId;
+                _orderEntity.Customer = _entryPoint.CustomerRepository.Get(_orderBussinesFromPUT.CustomerId);
                 _entryPoint.Complete();
 
                 return converter.Convert(_orderEntity);

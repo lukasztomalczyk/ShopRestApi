@@ -15,6 +15,8 @@ namespace DataAccessLayer.Entities
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+
+        public List<Adress> Adressess { get; set; }
         public List<Order> Orders { get; set; }
     }
 }

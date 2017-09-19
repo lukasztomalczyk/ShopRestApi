@@ -18,10 +18,6 @@ namespace DataAccessLayer.Repositories
         }
         public Order Create(Order _order)
         {
-            if (_order.Customer != null)
-            {
-                _context.Entry(_order.Customer).State = EntityState.Unchanged;
-            }
             _context.Orders.Add(_order);
             return _order;
         }

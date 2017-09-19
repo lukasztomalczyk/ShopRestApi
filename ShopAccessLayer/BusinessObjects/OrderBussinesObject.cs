@@ -15,7 +15,7 @@ namespace BussinesAccessLayer.BusinessObjects
         public DateTime DeliveryDate { get; set; }
         [Required]
         public int CustomerId { get; set; }
-        [Required]
+
         public CustomerBussinesObject Customer { get; set; }
     }
 }
