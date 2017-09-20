@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Context;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,10 @@ namespace DataAccessLayer.Repositories
 
         public List<Customer> GetAll()
         {
-            return _context.Customers.ToList();
+            return _context.Customers
+                .Include( c => c.Addresses)
+                .ThenInclude( c => c.Address)
+                .ToList();
         }
     }
 }

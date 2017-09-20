@@ -9,14 +9,13 @@ namespace DataAccessLayer.Entities
     {
         [Required]
         public int Id { get; set; }
-        [Required]
-        public string Address { get; set; }
+
         [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
 
-        public List<Adress> Adressess { get; set; }
+        public List<CustomerAddress> Addresses { get; set; }
         public List<Order> Orders { get; set; }
     }
 }

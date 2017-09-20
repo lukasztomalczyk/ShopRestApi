@@ -8,7 +8,7 @@ namespace DataAccessLayer
     {
         ICustomerRepository CustomerRepository { get; }
         IOrderRepository OrderRepository { get; }
-        IAdressRepository AdressRepository { get; }
+        IAddressRepository AddressRepository { get; }
 
         int Complete();
     }

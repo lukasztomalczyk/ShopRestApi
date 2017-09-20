@@ -20,8 +20,7 @@ namespace BussinesAccessLayer.BusinessObjects
 
         public string FullName => $"{FirstName} {LastName}";
 
-        [Required]
-        [MinLength(3), MaxLength(30)]
-        public string Address { get; set; }
+        public List<AddressBussinesObject> Addresses { get; set; }
+   
     }
 }

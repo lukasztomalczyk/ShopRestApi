@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using BussinesAccessLayer;
 using BussinesAccessLayer.BusinessObjects;
+using DataAccessLayer.Entities;
 
 namespace ShopRestAPI
 {
@@ -35,19 +36,28 @@ namespace ShopRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 BussinesLogic logic = new BussinesLogic();
+
+                AddressBussinesObject address = logic.AddressService.Create(
+                    new AddressBussinesObject()
+                    {
+                        City = "myslowice",
+                        Street = "armii",
+                        Number = "21"
+                    });
+
                 var Customer = logic.CustomerService.Create(
                     new CustomerBussinesObject() {
                         FirstName = "Jebus",
                         LastName = "Lukasz",
-                        Address = "Armii Krajowej"
+                        Addresses = new List<AddressBussinesObject>() { address }
                     });
 
                  logic.CustomerService.Create(
-                new BussinesAccessLayer.BusinessObjects.CustomerBussinesObject()
+                new CustomerBussinesObject()
                 {
                     FirstName = "Anita",
                     LastName = "Tomalczyk",
-                    Address = "Armii Krajowej 23",
+                    Addresses = new List<AddressBussinesObject>() { address }
                 });
 
                 logic.OrderService.Create(

@@ -18,6 +18,11 @@ namespace BussinesAccessLayer
             get { return new CustomerService(_dataAccess); }
         }
 
+        public IAddressService AddressService
+        {
+            get { return new AddressService(_dataAccess); }
+        }
+
         public IOrderService OrderService
         {
             get { return new OrderService(_dataAccess); }

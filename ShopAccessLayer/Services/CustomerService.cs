@@ -12,69 +12,71 @@ namespace BussinesAccessLayer.Services
 {
     class CustomerService : ICustomerService
     {
-        CustomerConverter converter = new CustomerConverter();
-        DataAccess dataAccess;
+        CustomerConverter _converter = new CustomerConverter();
+        AddressConverter _converterAddress = new AddressConverter();
+        DataAccess _dataAccess;
 
-        public CustomerService(DataAccess facade)
+        public CustomerService(DataAccess dataAccess)
         {
-            this.dataAccess = facade;
+            this._dataAccess = dataAccess;
         }
 
         public CustomerBussinesObject Create(CustomerBussinesObject _customerBussines)
         {
-            using (IUnitOfWork _unitOfWork = dataAccess.UnitOfWork)
+            using (IUnitOfWork _unitOfWork = _dataAccess.UnitOfWork)
             {
-                Customer _newCustomer = _unitOfWork.CustomerRepository.Create(converter.Convert(_customerBussines));
+                Customer _newCustomer = _unitOfWork.CustomerRepository.Create(_converter.Convert(_customerBussines));
                 _unitOfWork.Complete();
 
-                return converter.Convert(_newCustomer);
+                return _converter.Convert(_newCustomer);
             }
         }
 
         public CustomerBussinesObject Delete(int _idCustommer)
         {
-            using (IUnitOfWork _unitOfWork = dataAccess.UnitOfWork)
+            using (IUnitOfWork _unitOfWork = _dataAccess.UnitOfWork)
             {
                 Customer _newCustomer = _unitOfWork.CustomerRepository.Delete(_idCustommer);
                 _unitOfWork.Complete();
 
-                return converter.Convert(_newCustomer);
+                return _converter.Convert(_newCustomer);
             }
         }
 
         public CustomerBussinesObject Get(int _idCustommer)
         {
-            using (IUnitOfWork _unitOfWork = dataAccess.UnitOfWork)
+            using (IUnitOfWork _unitOfWork = _dataAccess.UnitOfWork)
             {
-                return converter.Convert(_unitOfWork.CustomerRepository.Get(_idCustommer));
+                return _converter.Convert(_unitOfWork.CustomerRepository.Get(_idCustommer));
             }
         }
 
         public List<CustomerBussinesObject> GetAll()
         {
-            using (IUnitOfWork _unitOfWork = dataAccess.UnitOfWork)
+            using (IUnitOfWork _unitOfWork = _dataAccess.UnitOfWork)
             { 
-                return _unitOfWork.CustomerRepository.GetAll().Select(converter.Convert).ToList();
+                return _unitOfWork.CustomerRepository.GetAll().Select(_converter.Convert).ToList();
             }
         }
 
         public CustomerBussinesObject Update(CustomerBussinesObject _customerBussines)
         {
-            using (IUnitOfWork _unitOfWork = dataAccess.UnitOfWork)
+            using (IUnitOfWork _unitOfWork = _dataAccess.UnitOfWork)
             {
-                Customer _customerFromDb = _unitOfWork.CustomerRepository.Get(_customerBussines.Id);
+                Customer _customerEntity = _unitOfWork.CustomerRepository.Get(_customerBussines.Id);
 
-                if (_customerFromDb == null)
+                if (_customerEntity == null)
                 {
                     throw new InvalidOperationException("Customer not found");
                 }
 
-                _customerFromDb.FirstName = _customerBussines.FirstName;
-                _customerFromDb.LastName = _customerBussines.LastName;
-                _customerFromDb.Address = _customerBussines.Address;
+                Customer _customerEntityConvertAddress = _converter.Convert(_customerBussines);
+                _customerEntity.FirstName = _customerBussines.FirstName;
+                _customerEntity.LastName = _customerBussines.LastName;
+                _customerEntity.Addresses = _customerEntityConvertAddress.Addresses;
                 _unitOfWork.Complete();
 
-                return converter.Convert(_customerFromDb);
+                return _converter.Convert(_customerEntity);
             }
 
         }

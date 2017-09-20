@@ -6,14 +6,14 @@ namespace BussinesAccessLayer
 {
     public interface ICustomerService
     {        
-        CustomerBussinesObject Create(CustomerBussinesObject cust);
+        CustomerBussinesObject Create(CustomerBussinesObject _customerBussinesObject);
         
         List<CustomerBussinesObject> GetAll();
 
-        CustomerBussinesObject Get(int Id);
+        CustomerBussinesObject Get(int _id);
        
-        CustomerBussinesObject Update(CustomerBussinesObject cust);
+        CustomerBussinesObject Update(CustomerBussinesObject _customerBussinesObject);
         
-        CustomerBussinesObject Delete(int Id);
+        CustomerBussinesObject Delete(int _id);
     }
 }
